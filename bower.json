@@ -1,0 +1,27 @@
+{
+  "name": "marionette",
+  "authors": [
+    "Eloizio Cesar Drummond Salgado <esalgado@avenuecode.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "backbone.marionette": "marionette#^2.4.5"
+  },
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "requirejs": "^2.2.0",
+    "text": "requirejs-text#^2.0.14",
+    "Materialize": "materialize#^0.97.5"
+  }
+}

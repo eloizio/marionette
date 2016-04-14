@@ -1,0 +1,26 @@
+#profile {
+  margin-top: 7px;
+  margin-right: 7px;
+}
+#profile .email {
+  position: absolute;
+  right: 77px;
+  bottom: -30px;
+  font-style: italic;
+}
+#profile img + div {
+  float: left;
+  margin-top: -5px;
+  margin-right: 20px;
+  text-transform: uppercase;
+}
+#loginForm {
+  width: 300px;
+  margin: 0 auto;
+}
+#userList .email {
+  display: ;
+}
+#userList .span.badge.new::after {
+  display: none;
+}
