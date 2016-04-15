@@ -23,7 +23,7 @@ define(['marionette', 'backbone', 'text!templates/homeTemplate', 'models/userMod
         id: 'me'
       });
 
-      // this.listenTo(this.userModel, 'sync', this.showProfileView, this);
+      this.listenTo(this.userModel, 'sync', this.showProfileView, this);
       this.userModel.fetch({
         headers: {
           'Authorization': 'bearer ' + sessionStorage.sessionId
@@ -39,7 +39,8 @@ define(['marionette', 'backbone', 'text!templates/homeTemplate', 'models/userMod
 
     showUserListView: function () {
       this.showChildView('userList', new UserListView({
-        collection: this.userList
+        collection: this.userList,
+        getFriendship: true
       }));
     },
 

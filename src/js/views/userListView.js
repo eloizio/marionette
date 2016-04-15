@@ -1,17 +1,25 @@
-define(['backbone', 'marionette', 'views/userInteractiveView'], function(Backbone, Marionette, UserInteractiveView) {
+define(['backbone', 'marionette', 'views/userInteractiveView', 'views/noUserView'], 
+  function(Backbone, Marionette, UserInteractiveView, NoUserView) {
 
   return Marionette.CollectionView.extend({
     tagName: 'ul',
     className: 'collection',
 
     childView: UserInteractiveView,
+    emptyView: NoUserView,
 
-    collectionEvents: {
-      'sync': 'checkout'
+    initialize: function(options) {
+      this.getFriendship = options.getFriendship || false;
+      this.friendshipStatus = options.friendshipStatus;
+      this.userRequested = options.userRequested;
     },
 
-    checkout: function() {
-      console.log('aaa');
+    childViewOptions: function() {
+      return {
+        getFriendship: this.getFriendship,
+        friendshipStatus: this.friendshipStatus,
+        userRequested: this.userRequested
+      };
     }
   });
 

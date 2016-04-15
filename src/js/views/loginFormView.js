@@ -16,9 +16,9 @@ define(['backbone', 'marionette', 'models/loginModel', 'text!templates/loginForm
       'click @ui.submit': 'doLogin'
     },
 
-    initialize: function() {
-      this.listenTo(this.model, 'login:success', this.handleLoginSuccess);
-      this.listenTo(this.model, 'login:failure', this.handleLoginFailure);
+    modelEvents: {
+      'login:success': 'handleLoginSuccess',
+      'login:failure': 'handleLoginFailure'
     },
 
     handleLoginSuccess: function(model, response) {

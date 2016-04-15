@@ -19,25 +19,34 @@ define(['backbone', 'marionette', 'views/userView', 'models/friendshipModel', 't
         'click @ui.acceptRequestButton': 'acceptRequestHandler'
       },
 
-      initialize: function() {
-        this.friendship = new FriendshipModel({
-          id: this.model.get('idAttribute')
-        });
-        this.listenTo(this.friendship, 'sync', this.adjustFriendshipStatus);
-        this.friendship.getFriendship();
+      // Can't make it work
+      // modelEvents: {
+      //   'sync':  'adjustFriendshipStatus'
+      // },
+
+      initialize: function(options) {
+        if(options.getFriendship) {
+          this.friendship = new FriendshipModel({
+            id: this.model.get('idAttribute')
+          });
+          this.listenTo(this.friendship, 'sync', this.adjustFriendshipStatus);
+          this.friendship.getFriendship();
+        }
+        else if(typeof options.friendshipStatus !== 'undefined') {
+          this.bindUIElements();
+          this.handleFriendshipButtons(options.friendshipStatus, options.userRequested);
+        }
       },
 
-      adjustFriendshipStatus: function() {
-        var friendshipStatusCode = this.friendship.get('status');
-
+      handleFriendshipButtons: function(friendshipStatusCode, userRequested) {
         _.each(this.ui, function(index, element, list) {
           list[element].addClass('hide');
         }); 
 
-        if(friendshipStatusCode === 0 && this.friendship.get('userRequested') !== this.model.get('idAttribute')){
+        if(friendshipStatusCode === 0 && userRequested !== this.model.get('idAttribute')){
           this.ui.acceptRequestButton.removeClass('hide');
         }
-        else if(friendshipStatusCode === 0){
+        else if(friendshipStatusCode === 0 || friendshipStatusCode === -1){
           this.ui.waitingApprovalButton.removeClass('hide');
         }
         else if(friendshipStatusCode === 1){
@@ -46,6 +55,10 @@ define(['backbone', 'marionette', 'views/userView', 'models/friendshipModel', 't
         else if(!friendshipStatusCode){
           this.ui.addFriendButton.removeClass('hide');
         }
+      },
+
+      adjustFriendshipStatus: function() {
+        this.handleFriendshipButtons(this.friendship.get('status'), this.friendship.get('userRequested'));
       },
 
       addFriendHandler: function() {

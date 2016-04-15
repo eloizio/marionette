@@ -1,4 +1,5 @@
-define(['marionette', 'backbone', 'layouts/myAppMainLayout', 'layouts/loginLayout', 'layouts/homeLayout'], function(Marionette, Backbone, MyAppMainLayout, LoginLayout, HomeLayout) {
+define(['marionette', 'backbone', 'layouts/myAppMainLayout', 'layouts/loginLayout', 'layouts/homeLayout', 'layouts/friendsLayout'], 
+  function(Marionette, Backbone, MyAppMainLayout, LoginLayout, HomeLayout, FriendsLayout) {
   var SocialController = Marionette.Object.extend({
 
     initialize: function() {
@@ -28,6 +29,10 @@ define(['marionette', 'backbone', 'layouts/myAppMainLayout', 'layouts/loginLayou
 
     doHome: function() {
       this.getOption('regionManager').get('main').show(new HomeLayout());
+    },
+
+    showFriends: function() {
+      this.getOption('regionManager').get('main').show(new FriendsLayout());
     }
 
   });
@@ -37,6 +42,7 @@ define(['marionette', 'backbone', 'layouts/myAppMainLayout', 'layouts/loginLayou
     appRoutes: {
       'login': 'doLogin',
       'home': 'doHome',
+      'friends': 'showFriends',
       '*path': 'doHello'
     },
 
